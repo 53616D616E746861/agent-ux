@@ -16,11 +16,12 @@ Agents get lost navigating the web. Content is unbounded, links are opaque, and 
 ## Core Principles
 
 1. **Progressive disclosure.** Don't dump everything. Show a summary, let the agent go deeper if they want.
-2. **Bounded responses.** Every response has a predictable size. No surprises.
+2. **Bounded responses.** Every response has a predictable size. No surprises. Large result sets get a preview gate.
 3. **Navigation on every screen.** The agent always knows what they can do next. Always a way home.
 4. **Intent-based hints.** "Looking for something?" beats "search \<query\>." Match what the agent is thinking, not what the tool accepts.
 5. **Stateless interactions.** Each command is independent. No session state, no "where am I." The agent's context window is the state.
 6. **Security through controlled data.** The agent never sees raw external content. The tool is a filter over curated data.
+7. **Navigation then analysis.** Navigation tools show what's in the data. Analytical lenses show what it means — surprises, gaps, overlaps, trajectories. Both use the same output patterns.
 
 ## Background
 

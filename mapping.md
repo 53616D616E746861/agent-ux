@@ -11,7 +11,8 @@ What humans get from visual interfaces and what agents need instead.
 | Back button / breadcrumbs | Return to previous context | "Back to home?" + contextual breadcrumbs (community ID on node view, seed names on subgraph) | Built |
 | Search results with snippets | Preview before committing to click | Two-level results: skeleton + top edges before full detail | Built |
 | Hover tooltips | Quick preview without navigating | *(no equivalent yet — closest is search result preview)* | Gap |
-| Filtering / faceting | Narrow results by attribute | `--type`, `--origin` flags on search/community | Not built |
+| Filtering / faceting | Narrow results by attribute | `--type`, `--origin` flags on explore/search/community, composable | Built |
+| Preview gate for large results | "This will show 200 items" before committing | Top 15 preview + `--full` opt-in when result set > threshold | Built |
 | Sorting controls | Reorder by different criteria | `--sort degree\|alpha\|relevance` | Not built |
 | "Related items" sidebar | Discovery — what else is relevant | Similar nodes in node detail (cosine similarity) | Built |
 | Pagination | Bounded batches of results | Cap at 10 results + "N more" count | Built |
@@ -23,6 +24,17 @@ What humans get from visual interfaces and what agents need instead.
 | Drag to explore neighborhood | Spatial exploration of surroundings | `subgraph <name> --hops N` | Built |
 | Path highlighting | How two things connect | `path <from> -- <to>` | Built |
 | Dashboard / overview panel | Health + key metrics at a glance | graph-overview, anomaly-report | Built (KG) |
+
+## Navigation → Analysis
+
+The rows above are navigational — they help agents find and traverse data. The rows below are analytical — they help agents *interpret* data by revealing structure that simple traversal won't surface.
+
+| What humans see | What it gives them | Agent equivalent | Status |
+|---|---|---|---|
+| Heatmap / anomaly highlighting | "Something unexpected here" | `surprise <name>` — curated edges with low semantic similarity | Building |
+| Coverage map / gap analysis | "What's missing from this view" | `gaps <name>` — communities/types where agent has no presence | Building |
+| Side-by-side comparison | Where two things overlap or diverge | `overlap <A> <B>` — shared concept space between agents | Not built |
+| Timeline / version history | How things changed over time | `explore --since <date>` or `diff` — temporal delta view | Not built |
 
 ## What Doesn't Map
 

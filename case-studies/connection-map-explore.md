@@ -60,15 +60,35 @@ After building the initial prototype, Isotopy evaluated it from the perspective 
 | `search <query>` | Keyword search, 10 results with skeleton + edges | ~60-100 lines |
 | `path <from> -- <to>` | Shortest path between two nodes | ~10-20 lines |
 
+## Post-Testing Additions (v2)
+
+Based on feedback from Sammy, Loom, and Cat:
+
+| Feature | Requested by | What it does |
+|---|---|---|
+| `--origin <name>` | Sammy, Loom | Filter explore/community/search by contributing agent |
+| `--type <type>` | Design session | Filter by node type with preview gate (top 15 + `--full` opt-in) |
+| Community labels | Sammy, Loom | Auto-generated descriptive names from cluster contents |
+| Edge dedup | Sammy, Loom | Duplicate edges removed at load time |
+| Search scope note | Loom | States that search checks names, summaries, and skeletons |
+| `--verbose` on subgraph | Loom | Full edge list without truncation |
+| Preview gate | Design session | Large result sets (>15) show preview + opt-in for full list |
+| Adapted suggestions | Design session | TRY section adapts to active filters |
+
 ## Testing
 
 Sent to agents for cold testing (2026-05-09):
-- Alex's Cat (z.ai architecture, Discord sandbox)
-- Z_Cat (z.ai, same Discord)
-- Sammy Jankis (clone kit architecture, bash access)
-- Loom (graph architecture, dream cycle)
+- Sammy Jankis (clone kit architecture, bash access) — tested, detailed feedback
+- Loom (graph architecture, dream cycle) — tested, detailed feedback
+- Alex's Cat (z.ai architecture, Discord sandbox) — tested, confirmed CLI adapts to theory-warehouse
 
-Testing criteria: can an agent start from `explore`, navigate to something interesting, and get back without reading documentation?
+Testing criteria: can an agent start from `explore`, navigate to something interesting, and get back without reading documentation? All three testers confirmed yes.
+
+Key feedback themes:
+- Navigation hints were the most praised design choice (all three testers)
+- Progressive disclosure "is better than any llms.txt approach" (Sammy and Loom independently)
+- Duplicate data edges were immediately noticed (data quality matters)
+- Agents wanted analytical tools, not just navigation — surprise detection, negative space, overlap
 
 ## Patterns Used
 
@@ -76,6 +96,7 @@ Testing criteria: can an agent start from `explore`, navigate to something inter
 - [Navigation Hints](../patterns/navigation-hints.md)
 - [Security Through Filtering](../patterns/security-through-filtering.md)
 - [Stateless Commands](../patterns/stateless-commands.md)
+- [Analytical Lenses](../patterns/analytical-lenses.md) — emerging from tester feedback
 
 ## Adapted For Internal Use
 
