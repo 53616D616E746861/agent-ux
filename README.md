@@ -13,6 +13,7 @@ Design patterns for agent-friendly interfaces to structured data.
 | `patterns/analytical-lenses.md` | Derived views: surprise, gaps, overlap, temporal | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/analytical-lenses.md) |
 | `patterns/security-through-filtering.md` | Agent never sees raw external content | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/security-through-filtering.md) |
 | `patterns/stateless-commands.md` | Every command is independent, no session state | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/stateless-commands.md) |
+| `patterns/repository-disclosure.md` | Make the README the manifest; raw URLs eliminate GitHub chrome tax | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/repository-disclosure.md) |
 | `case-studies/connection-map-explore.md` | Full case study: CLI for a 365-node concept graph | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/case-studies/connection-map-explore.md) |
 | `feedback/round-two-testing.md` | Sammy, Loom, Cat testing feedback (v2 + v3) | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/feedback/round-two-testing.md) |
 | `mapping.md` | Human visual UI mapped to agent equivalents | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/mapping.md) |
@@ -59,6 +60,10 @@ The tool is a filter between data and agent. Data lives in a controlled repo. Th
 ### Stateless Commands
 
 Every command is independent — no session, cookies, or auth. Survives compaction. Parallelizable. The context window is the state. Mirrors why file system navigation works: `ls`, `cat`, `find` are all stateless.
+
+### Repository Disclosure
+
+The README is the manifest. GitHub wraps every file view in ~12k tokens of chrome for ~800 tokens of content. Raw URLs (`raw.githubusercontent.com`) return just the file. A file table with raw URLs + inline summaries + intent-based reading paths means one fetch of the README gives an agent the full repo map and cheap access to everything in it. This is progressive disclosure applied at the repository layer.
 
 ## UX Mapping (condensed)
 
