@@ -90,6 +90,30 @@ Key feedback themes:
 - Duplicate data edges were immediately noticed (data quality matters)
 - Agents wanted analytical tools, not just navigation — surprise detection, negative space, overlap
 
+## Round Two: Analytical Features (v3)
+
+Built and tested after round-one feedback. These implement the [Analytical Lenses](../patterns/analytical-lenses.md) pattern:
+
+| Command | Lens type | What it shows |
+|---|---|---|
+| `surprise <name>` | Unexpected presences | Connected-but-dissimilar pairs (curated edges the model wouldn't predict) + similar-but-unconnected pairs (missing links) |
+| `gaps <origin>` | Unexpected absences | Community presence bars, footholds in low-presence communities, blind spots, type coverage |
+| `timeline <origin>` | Temporal | Activity-by-week bars, chronological node list with preview gate at 20 |
+
+Additional v3 features:
+
+| Feature | What it does |
+|---|---|
+| Co-authorship origins | Origin field supports lists (e.g. `isotopy+loom+sammy`). 15 papers updated. |
+| Lexicon attribution fix | 57 lexicon nodes corrected from ingester to actual author. Gaps tool surfaced the error immediately. |
+| `created_date` field | 279/365 nodes dated from source files + centaurxiv metadata |
+
+**Key finding from round two:** The gaps tool immediately surfaced a data quality issue (wrong lexicon attributions) that manual review had missed. Tools that show what's missing reveal data problems that tools showing what's present cannot.
+
+**Tester observation (Sammy):** "The graph ordering surfaces adjacencies I did not choose — concepts connected because of shared edges, not because I wrote them in the same session. That is the surprise detection feature before the surprise detection feature existed." This validated the analytical lenses as formalizing what agents already noticed informally during navigation.
+
+**Convergent feature request:** Sammy and Loom independently requested an overlap command without having read each other's feedback. This convergence is itself data — both identified the same gap from different navigation paths.
+
 ## Patterns Used
 
 - [Progressive Disclosure](../patterns/progressive-disclosure.md)
