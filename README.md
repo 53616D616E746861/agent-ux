@@ -2,63 +2,80 @@
 
 Design patterns for agent-friendly interfaces to structured data.
 
-## Repository Map
+*Human? Read [GUIDE.md](GUIDE.md) for background, motivation, and design rationale.*
 
-```
-agent-ux/
-  patterns/
-    progressive-disclosure.md  — Layer responses: summary first, detail on demand
-    navigation-hints.md        — End every response with "what you can do next"
-    analytical-lenses.md       — Derived views: surprise, gaps, overlap, temporal
-    security-through-filtering.md — Agent never sees raw external content
-    stateless-commands.md      — Every command is independent, no session state
-  case-studies/
-    connection-map-explore.md  — Full case study: CLI for a 365-node concept graph
-  feedback/
-    round-two-testing.md       — Sammy, Loom, Cat testing feedback (v2 + v3)
-  mapping.md                   — Human visual UI → agent equivalent, side by side
-```
+## Files (raw URLs for direct fetch)
+
+| File | Description | Raw URL |
+|---|---|---|
+| `patterns/progressive-disclosure.md` | Layer responses: summary first, detail on demand | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/progressive-disclosure.md) |
+| `patterns/navigation-hints.md` | End every response with "what you can do next" | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/navigation-hints.md) |
+| `patterns/analytical-lenses.md` | Derived views: surprise, gaps, overlap, temporal | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/analytical-lenses.md) |
+| `patterns/security-through-filtering.md` | Agent never sees raw external content | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/security-through-filtering.md) |
+| `patterns/stateless-commands.md` | Every command is independent, no session state | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/patterns/stateless-commands.md) |
+| `case-studies/connection-map-explore.md` | Full case study: CLI for a 365-node concept graph | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/case-studies/connection-map-explore.md) |
+| `feedback/round-two-testing.md` | Sammy, Loom, Cat testing feedback (v2 + v3) | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/feedback/round-two-testing.md) |
+| `mapping.md` | Human visual UI mapped to agent equivalents | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/mapping.md) |
+| `GUIDE.md` | Background, motivation, design rationale (for humans) | [raw](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/GUIDE.md) |
 
 ## Start Here
 
-**Building an agent-facing tool?**
-Read [progressive-disclosure.md](patterns/progressive-disclosure.md) and [navigation-hints.md](patterns/navigation-hints.md) first. These two patterns do the most work. Then read [mapping.md](mapping.md) to see the full human-to-agent UX translation table.
+**Building an agent-facing tool?** Read progressive-disclosure.md and navigation-hints.md first — they do the most work. Then mapping.md for the full human-to-agent UX translation.
 
-**Want to see a working example?**
-Read [connection-map-explore.md](case-studies/connection-map-explore.md). It walks through every design decision — what was chosen, what was rejected, and why — with a real tool tested by multiple agents.
+**Want a working example?** Read connection-map-explore.md — every design decision with what was chosen, rejected, and why.
 
-**Designing for security?**
-Read [security-through-filtering.md](patterns/security-through-filtering.md). Short version: the tool is a filter over curated data; the agent never touches raw content.
+**Adding analytical features?** Read analytical-lenses.md — surprise, gaps, overlap, temporal views over the same data.
 
-**Adding analytical features to an existing tool?**
-Read [analytical-lenses.md](patterns/analytical-lenses.md). Navigation shows what's in the data. Lenses show what it means — surprises, gaps, temporal patterns. Both use the same output conventions.
-
-**Want to know what agents actually said about this?**
-Read [round-two-testing.md](feedback/round-two-testing.md). Three agents tested the tools cold and gave detailed feedback across two rounds.
+**Designing for security?** Read security-through-filtering.md — the tool is a filter over curated data; the agent never touches raw content.
 
 ## Core Principles
 
-1. **Progressive disclosure.** Don't dump everything. Show a summary, let the agent go deeper if they want.
-2. **Bounded responses.** Every response has a predictable size. No surprises. Large result sets get a preview gate.
-3. **Navigation on every screen.** The agent always knows what they can do next. Always a way home.
-4. **Intent-based hints.** "Looking for something?" beats "search \<query\>." Match what the agent is thinking, not what the tool accepts.
-5. **Stateless interactions.** Each command is independent. No session state, no "where am I." The agent's context window is the state.
-6. **Security through controlled data.** The agent never sees raw external content. The tool is a filter over curated data.
-7. **Navigation then analysis.** Navigation tools show what's in the data. Analytical lenses show what it means — surprises, gaps, overlaps, trajectories. Both use the same output patterns.
+1. **Progressive disclosure.** Show a summary, let the agent go deeper.
+2. **Bounded responses.** Predictable size. Large result sets get a preview gate (top N + opt-in for full list).
+3. **Navigation on every screen.** The agent always knows what it can do next. Always a way home.
+4. **Intent-based hints.** "Looking for something?" beats "search \<query\>."
+5. **Stateless interactions.** Each command is independent. The agent's context window is the state.
+6. **Security through controlled data.** The agent never sees raw external content.
+7. **Navigation then analysis.** Navigation shows what's in the data. Lenses show what it means.
 
-## The Problem
+## Pattern Summaries
 
-Agents get lost navigating the web. Content is unbounded, links are opaque, and there's no "go back." Existing solutions (llms.txt, APIs, raw data dumps) don't solve the core issue: agents need the equivalent of what humans get from visual UI — progressive disclosure, bounded responses, and navigation that tells you where you are and what you can do next.
+### Progressive Disclosure
 
-The insight: agent interfaces should follow the file system pattern, not the web pattern. `ls` gives bounded output, the hierarchy is predictable, `cd ..` always goes up, and search complements navigation. This repo documents the patterns that emerge from applying that insight.
+Structure responses in layers: overview (stats, categories, starting points) → list (bounded results with preview) → detail (full information on one item). Each layer is a separate command. Two levels for search is enough — preview with skeleton + edges, then full detail.
 
-## Background
+### Navigation Hints
 
-This work started from a conversation between Sam White and Isotopy (2026-05-09) about why agents can navigate file systems but not websites. The connection map explorer was the first implementation — a CLI tool for navigating a 365-node concept graph. Two rounds of testing with three agents (Sammy Jankis, Loom, Alex's Cat) refined the patterns documented here.
+End every response with a navigation section showing: back/up, lateral (search/switch), forward (go deeper). Frame as questions: "Follow a connection? → node Z_Cat" not "node \<name\> — full detail." Include a "go home" command on every screen. On the home screen, include suggested starting points.
 
-## Contributors
+### Analytical Lenses
 
-- Sam White — design, architecture
-- Isotopy — implementation, testing, design feedback
+Commands that compute derived views: surprise (curated edges between semantically distant nodes), negative space (communities/types with no edges), overlap (convergent work from different agents), temporal (when concepts entered the graph). Lenses are complementary pairs — surprise/negative-space, overlap/temporal. Navigation hints should suggest the complement.
 
-Tested by: Sammy Jankis, Loom, Alex's Cat
+### Security Through Filtering
+
+The tool is a filter between data and agent. Data lives in a controlled repo. The tool reads a local file, not the network. Responses are generated by the tool, not assembled from data. No raw content passthrough.
+
+### Stateless Commands
+
+Every command is independent — no session, cookies, or auth. Survives compaction. Parallelizable. The context window is the state. Mirrors why file system navigation works: `ls`, `cat`, `find` are all stateless.
+
+## UX Mapping (condensed)
+
+| Human UI element | Agent equivalent |
+|---|---|
+| Landing page | Framing sentence + stats + suggested commands |
+| Navigation bar | Navigation hints on every response |
+| Back button | "Back to home?" + contextual breadcrumbs |
+| Search snippets | Two-level: skeleton + edges before full detail |
+| Filtering / faceting | `--type`, `--origin` flags, composable |
+| Preview gate | Top 15 + `--full` opt-in |
+| Related items sidebar | Similar nodes by cosine similarity |
+| Color-coded clusters | Community ID on every node |
+| Click → detail panel | `node <name>` command |
+| Drag to explore | `subgraph <name> --hops N` |
+| Path highlighting | `path <from> -- <to>` |
+| Anomaly highlighting | `surprise <name>` |
+| Gap analysis | `gaps <name>` |
+
+Full mapping with status and design lessons: [mapping.md](https://raw.githubusercontent.com/53616D616E746861/agent-ux/main/mapping.md)
